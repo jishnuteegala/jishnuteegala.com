@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# jishnuteegala.com
 
-## Getting Started
+Personal site of Jishnu Teegala — CV, projects, labs, and a scaffolded blog.
 
-First, run the development server:
+Next.js (App Router) · TypeScript · Tailwind v4 · pnpm · deployed on Vercel.
+
+## Principles
+
+- **One source of truth, many projections.** CV content lives in `src/data/cv.ts`; the `/cv` page, its markdown variant, and all four PDFs (full/condensed × light/dark) are generated from it and cannot drift.
+- **Agents are readers too.** Everything is server-rendered and semantic. Every content page has a `.md` variant; `/llms.txt` and `/llms-full.txt` are generated from the same data.
+- **The site is the portfolio.** Quiet, typography-led design; near-monochrome with one accent; light/dark/system themes.
+
+## Commands
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm dev            # dev server
+pnpm build          # generate CV PDFs (headless Chromium), then next build
+pnpm generate:pdf   # regenerate PDFs against a running dev server
+pnpm smoke          # smoke checks against a running server
+pnpm lint           # oxlint
+pnpm format         # oxfmt --check
+pnpm typecheck      # tsc --noEmit
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Content
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **CV** — edit `src/data/cv.ts`. Each bullet is tagged `highlight` or `detail`; condensed views show highlights only.
+- **Blog** — drop an `.mdx` file in `content/blog/` with `title`, `date`, `description` frontmatter and push. Invalid frontmatter fails the build. The blog stays hidden from navigation until a post exists.
+- **Projects** — pins and narrative in `src/data/projects.ts`; everything else comes live from the GitHub API (hourly cache).
+- **Labs** — register entries in `src/data/labs.ts` and add routes under `src/app/labs/`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Docs
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `CONTEXT.md` — glossary of domain terms
+- `docs/adr/` — architecture decision records
+- `.env.example` — every variable is optional; the site degrades gracefully

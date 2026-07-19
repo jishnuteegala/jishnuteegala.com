@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# CV PDFs are generated locally (pnpm generate:pdf) and committed, because the
+# Vercel build image lacks Chromium's system libraries (libnspr4 etc.)
